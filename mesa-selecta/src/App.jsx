@@ -1,11 +1,12 @@
 import './App.css'
+import './Components/Registro y Login/Login'
+import Login from './Components/Registro y Login/Login'
 
 function App() {
 
   return (
     <>
-     <h1>Hola caracola</h1>
-     {/*Hola */}
+     <Login></Login>
     </>
   )
 }
