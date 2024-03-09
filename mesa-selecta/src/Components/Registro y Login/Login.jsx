@@ -3,8 +3,7 @@ import './Login.css'
 
 const Login = () => {
   return (
-    <div className="container">
-      <div className="login">
+    <div className="login">
       <form action="" className='formulario'>
       <h1>LOG IN</h1>
             <label htmlFor="">Nombre de Usuario</label>
@@ -23,7 +22,6 @@ const Login = () => {
             <label htmlFor="">¿Se te olvido la contraseña?</label>
             </label>
       </form>
-    </div>
     </div>
   )
 }

@@ -1,0 +1,35 @@
+.contenedor{
+    width: 40%;
+    margin: 1%;
+}
+
+.tabs{
+    margin-left: -2%;
+}
+
+.tab1,.tab2{
+    margin-bottom: 1%;
+}
+
+.btn-group-vertical{
+    margin-right: 3%;
+}
+
+.calendar{
+    border: black;
+}
+
+input{
+    background-color: rgb(187, 186, 186);
+}
+
+.cantidadPer{
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    
+}
+
+label{
+    color: black;
+}
