@@ -1,6 +1,7 @@
-.contenedor{
-    width: 40%;
-    margin: 1%;
+.ContenedorU{
+    width: 70%;
+    margin: 10%;
+    height: 100%;
 }
 
 .tabs{
@@ -15,21 +16,24 @@
     margin-right: 3%;
 }
 
-.calendar{
-    border: black;
+.btn{
+    border-radius: 10px;
+}
+
+.btn-primary{
+    background-color: #008080;
 }
 
 input{
     background-color: rgb(187, 186, 186);
 }
 
-.cantidadPer{
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    
-}
 
 label{
     color: black;
 }
+
+
+
+
+

@@ -1,16 +1,21 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import  './RegistroU.css'
 
 
 export default class RegistroU extends Component {
   render() {
+
+
     return (
-      <div>
-        <header>
-          Ingrese los datos para el registro
-        </header>
+      <div className='ContenedorU'>
+
+          <h1 className='text-center'>Registro de Usuario</h1>
          <form class="row g-3">
 
+              <div className="col-md-6">
+              
+              
+              </div>
 
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label" >Cédula</label>
@@ -116,11 +121,9 @@ export default class RegistroU extends Component {
               </div>
 
               <span class="d-block sm-0"/>
-              <div class="col-2">
-                <button type="submit" class="btn btn-primary center">Registrarse</button>
-              </div>
-              <div class="col-2">
-                <button type="submit" class="btn btn-danger">Salir</button>
+              <div class="col-16 text-center btn-group ">
+                <button type="submit" class="btn btn-primary">Registrarse</button>
+                <button type="submit" class="btn btn-danger">Volver</button>
               </div>
           </form>
   

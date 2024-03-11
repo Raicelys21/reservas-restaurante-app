@@ -1,0 +1,35 @@
+.ContenedorRest{
+    width: 70%;
+    margin: 10%;
+    height: 100%;
+    background-color:#F5F5F5 ;
+    border-radius: 3%;
+    padding: 1%;
+}
+
+label{
+    font-size: 12px;
+
+}
+.cantidadPero{
+    display: flex;
+    align-items: center;
+    align-items: center;
+    font-weight: bold;
+    
+}
+
+.cantidadPero>label{
+    font-size: 12px;
+    font-weight: lighter;
+
+}
+
+
+/* .icono-restaurante {
+    height: 280px; 
+    border-radius: 50%; 
+    border: 2px solid #333; 
+    justify-self: center;
+} */
+
