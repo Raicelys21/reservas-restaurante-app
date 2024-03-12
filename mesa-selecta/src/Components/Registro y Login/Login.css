@@ -20,7 +20,7 @@
     flex-direction: column;
     display: flex;
     gap: 5px;
-    backdrop-filter: brightness(40%);
+    /* backdrop-filter: brightness(40%); */
     justify-content: center;
 }
 

@@ -1,46 +1,211 @@
-import React, { Component } from 'react'
-import '../../Restaurantes/CardR/Card.css'
-import RestaurantCard from '../../Restaurantes/CardR/RestaurantCard'
+import React, { useState, useEffect } from "react";
+import "../../Restaurantes/CardR/Card.css";
+import RestaurantCard from "../../Restaurantes/CardR/RestaurantCard";
+import Modal from "./Modal";
+import axios from "axios";
 
-export default class HomeInt extends Component {
-  render() {
-    return (
+const HomeInt = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [restaurantes, setRestaurantes] = useState([]);
+
+  useEffect(() => {
+    const fetchRestaurantes = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/restaurante/restaurantes"
+        );
+        setRestaurantes(response.data);
+      } catch (error) {
+        console.error("Error al obtener restaurantes:", error);
+      }
+    };
+
+    fetchRestaurantes();
+  }, []);
+
+  const [reservaForm, setReservaForm] = useState({
+    nombre_restaurante: "",
+    telefono: "",
+    ciudad: "",
+    ubicacion: "",
+    cant_mesas: 0,
+    num_personas: 0,
+    menu: "",
+    hora_apertura: "",
+    hora_cierre: "",
+  });
+
+  const openModal = (restaurante) => {
+    setModalVisible(true);
+    let modal = document.querySelector("#modal-window");
+    modal.classList.add("showModal");
+    setReservaForm({
+      nombre_restaurante: restaurante.nombre_restaurante,
+      telefono: restaurante.telefono,
+      ciudad: restaurante.ciudad,
+      ubicacion: restaurante.ubicacion,
+      cant_mesas: restaurante.cant_mesas,
+      num_personas: restaurante.num_personas,
+      menu: restaurante.menu,
+      hora_apertura: restaurante.hora_apertura,
+      hora_cierre: restaurante.hora_cierre,
+    });
+
+    console.log(reservaForm);
+  };
+
+  const closeM = () => {
+    setModalVisible(false);
+  };
+
+  window.onclick = (event) => {
+    if (event.target === document.querySelector("#modal-window")) {
+      closeM();
+    }
+  };
+
+  return (
+    <>
       <div className="app-container">
-        <section class="navigation">
-    <a href="#" class="app-link">Travelers</a>
-    <div class="navigation-links">
-      <a href="#" class="nav-link ">Destinations</a>
-      <a href="#" class="nav-link active">Hotels</a>
-      <a href="#" class="nav-link">Camping</a>
-      <a href="#" class="nav-link">Car Rent</a>
-    </div>
-    <div class="nav-right-side">
-      <button class="mode-switch">
-       <svg class="sun feather feather-sun" fill="none" stroke="#fbb046" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"  viewBox="0 0 24 24"><defs/><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-        <svg class="moon feather feather-moon" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"  viewBox="0 0 24 24"><defs/><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-     </button>
-    </div>  
-  </section>
-            <section class="app-actions">
-                <div class="app-actions-line">
-                <div class="search-wrapper">
-                    <button class="loaction-btn">
-                    <svg class="btn-icon feather feather-map-pin" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"  viewBox="0 0 24 24">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-                        <circle cx="12" cy="10" r="3"/>
-                    </svg>
-                    </button>
-                    <input type="text" class="search-input" value="San Francisco, Stockton Street"/>
-                    <button class="search-btn">Find Hotel</button>
-                </div>
-                </div>
-            </section>
-        <section className="app-main">
-            <div class="app-main-left cards-area">
-            <RestaurantCard/> 
+        <section className="navigation">
+          <a href="/HomeInt" className="app-link">
+            Mesa Selecta
+          </a>
+          <div className="navigation-links">
+            <a href="/misreservas" className="nav-link ">
+              Mis reservas
+            </a>
+            <a href="/HomeInt" className="nav-link active">
+              Restaurantes
+            </a>
+            <a href="Perfil" className="nav-link">
+              Perfil
+            </a>
+          </div>
+          <div className="nav-right-side">
+            <p></p>
+          </div>
+        </section>
+
+        <section className="app-actions">
+          <form className="row g-1">
+            <div className="col-m6">
+              <label htmlFor="inputState2" className="form-label">
+                Ciudad
+              </label>
+              <select id="inputState2" className="form-select">
+                <option selected>Seleccionar</option>
+                <option>Santo Domingo</option>
+                <option>Santiago de los Caballeros</option>
+                <option>La Romana</option>
+                <option>San Pedro de Macorís</option>
+                <option>San Francisco de Macorís</option>
+                <option>La Vega</option>
+                <option>Puerto Plata</option>
+                <option>Higüey</option>
+                <option>Bonao</option>
+                <option>Barahona</option>
+                <option>San Cristóbal</option>
+                <option>Mao</option>
+                <option>Moca</option>
+                <option>Azua</option>
+                <option>Cotuí</option>
+                <option>Salcedo</option>
+                <option>San Juan de la Maguana</option>
+                <option>Bani</option>
+                <option>Dajabón</option>
+                <option>Monte Plata</option>
+                <option>Jimaní</option>
+                <option>Neiba</option>
+                <option>Nagua</option>
+                <option>Sabaneta</option>
+                <option>Montecristi</option>
+                <option>Santo Domingo Este</option>
+                <option>Santo Domingo Norte</option>
+                <option>Santo Domingo Oeste</option>
+                <option>Boca Chica</option>
+                <option>San José de Ocoa</option>
+                <option>Constanza</option>
+                <option>El Seibo</option>
+                <option>Hato Mayor del Rey</option>
+                <option>Independencia</option>
+                <option>Los Alcarrizos</option>
+                <option>Pedernales</option>
+                <option>San José de las Matas</option>
+                <option>San Juan</option>
+                <option>Santiago Rodríguez</option>
+                <option>Valverde Mao</option>
+                <option>Duvergé</option>
+                <option>Jarabacoa</option>
+                <option>Loma de Cabrera</option>
+                <option>Las Matas de Farfán</option>
+                <option>Padre Las Casas</option>
+                <option>Monte Cristi</option>
+                <option>Pepillo Salcedo</option>
+                <option>Puerto Plata</option>
+                <option>Río San Juan</option>
+                <option>Samaná</option>
+                <option>San José de las Matas</option>
+                <option>San Juan de la Maguana</option>
+                <option>San Pedro de Macorís</option>
+                <option>San Rafael del Yuma</option>
+                <option>Santiago</option>
+                <option>Tamayo</option>
+                <option>Villa Altagracia</option>
+                <option>Villa Bisonó</option>
+                <option>Villa González</option>
+                <option>Villa Jaragua</option>
+                <option>Villa Riva</option>
+                <option>Yaguate</option>
+              </select>
             </div>
+          </form>
+        </section>
+
+        <section className="app-main">
+          <div className="app-main-left cards-area">
+            {restaurantes.map((restaurante) => (
+              <div className="card-wrapper main-card" key={restaurante.id}>
+                <div className="col" key={restaurante.id}>
+                  <a className="card cardItemjs" onClick={() => openModal(restaurante)}>
+                    <div className="card-image-wrapper">
+                      <img
+                        src={`https://source.unsplash.com/featured/1200x900/?restaurant-room,restaurant&id=${restaurante.id}`}
+                        alt="Restaurante"
+                      />
+                    </div>
+                    <div className="card-info">
+                      <div className="card-text big cardText-js">
+                        Nombre: {restaurante.nombre_restaurante}
+                      </div>
+                      <div className="card-text small">
+                        Teléfono:{" "}
+                        <span className="card-price">
+                          {restaurante.telefono}
+                        </span>
+                      </div>
+                      <div className="card-text small">
+                        Ciudad:{" "}
+                        <span className="card-price">{restaurante.ciudad}</span>
+                      </div>
+                      <div className="card-text small">
+                        Maps:{" "}
+                        <span className="card-price">
+                          {restaurante.ubicacion}
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
       </div>
-    )
-  }
-}
+
+      {modalVisible && <Modal closeModal={closeM} reservaForm={reservaForm} />}
+    </>
+  );
+};
+
+export default HomeInt;

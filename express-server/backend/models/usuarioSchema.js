@@ -22,6 +22,12 @@ const usuarioSchema = mongoose.Schema({
     type: String,
     required: [true, "The correo field is required."],
   },
+  ciudad: {
+    type: String,
+  },
+  direccion: {
+    type: String,
+  },
   contrasena: {
     type: String,
     required: [true, "The contrasena field is required."],

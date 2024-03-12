@@ -10,6 +10,22 @@ const postusuario = async (req, res) => {
   }
 };
 
+// Get a single Usuarios
+const get_UsuarioCorreo = async (req, res) => {
+  try {
+    const { correo, contrasena } = req.params;
+
+    const usuarioEncontrado = await usuario.findOne({ correo, contrasena });
+    if (!usuarioEncontrado) {
+      return res.status(404).json(`No user found with email: ${correo} and password: ${contrasena}`);
+    }
+
+    res.status(200).json(usuarioEncontrado);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
 // get all usuario
 const getAllusuario = async (req, res) => {
   try {
@@ -72,4 +88,5 @@ module.exports = {
   getusuario,
   deleteusuario,
   updateusuario,
+  get_UsuarioCorreo,
 };

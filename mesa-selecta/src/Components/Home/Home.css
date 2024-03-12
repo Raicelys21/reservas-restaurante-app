@@ -5,7 +5,16 @@ header {
     padding: 10px 20px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
     text-decoration: none;
-    margin-bottom: 5%;
+  }
+
+
+  .content001 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
   }
   
   nav ul {

@@ -12,7 +12,12 @@ import RestaurantesRegistro from "./Components/Restaurantes/RestaurantesRegistro
 import ChooseUserType from "./Components/Registro y Login/ChooseUserType";
 import Login from "./Components/Registro y Login/Login"
 import Home from "./Components/Home/Home";
+import HomeInt from "./Components/Home/HomeInt/HomeInt";
 import RestaurantCard from "./Components/Restaurantes/CardR/RestaurantCard";
+import MiReserva from "./Components/MisReservas/MiReserva";
+import Perfil from "./Components/PerfilUsuario/Perfil";
+
+export const URL = "http://localhost:5000/api";
 
 function App() {
   return (
@@ -27,7 +32,9 @@ function App() {
             <Route path="/Login" element={<Login />} />
             <Route path="/" element={<Home />} />
             <Route path="/RestaurantCard" element={<RestaurantCard/>}/>
-            {/* <Route path="/HomeInt" element={<HomeInt/>}/> */}
+            <Route path="/HomeInt" element={<HomeInt/>}/>
+            <Route path="/Misreservas" element={<MiReserva/>}/>
+            <Route path="/Perfil" element={<Perfil/>}/>
           </Routes>
         </BrowserRouter>
       </div>
