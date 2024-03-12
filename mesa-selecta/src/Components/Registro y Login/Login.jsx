@@ -6,8 +6,8 @@ const Login = () => {
     <div className="login">
       <form action="" className='formulario'>
       <h1>LOG IN</h1>
-            <label htmlFor="">Nombre de Usuario</label>
-            <input type="text" name="" id="" />
+            <label htmlFor="">Correo</label>
+            <input type="email" name="" id="" />
             <label htmlFor=""> Contraseña</label>
             <input type="password" name="" id="" />
             <label htmlFor="" className="recordarpass">

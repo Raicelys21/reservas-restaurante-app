@@ -69,7 +69,9 @@ const ReservaComp = () => {
                   <button className="btn btn-primary" onClick={handlerAumentar}>+</button>
                 </div>
               </div>
-              <div className="tab4"></div>
+              <div className="tab4">
+                <button className="btn btn-success">Reservar</button>
+              </div>
             </div>
           </div>
         </div>
