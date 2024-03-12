@@ -12,10 +12,10 @@ export default class RegistroU extends Component {
           <h1 className='text-center'>Registro de Usuario</h1>
          <form class="row g-3">
 
-              <div className="col-md-6">
+              {/* <div className="col-md-6">
               
               
-              </div>
+              </div> */}
 
               <div class="col-md-6">
                 <label for="inputAddress" class="form-label" >Cédula</label>
@@ -125,6 +125,13 @@ export default class RegistroU extends Component {
                 <button type="submit" class="btn btn-primary">Registrarse</button>
                 <button type="submit" class="btn btn-danger">Volver</button>
               </div>
+              {/* <div className="text-center RegistrarEMP">
+                <a href="">
+                  ¿Deseas registrar una empresa?
+                </a>
+              </div> */}
+                
+              
           </form>
   
       </div>

@@ -1,0 +1,38 @@
+.ContenedorCh {
+    width: 80%;
+    margin: 10%;
+    height: 120%;
+    background-color:#F5F5F5 ;
+    border-radius: 3%;
+    padding: 3%;
+}
+
+.imagen{
+width: 60%;
+height: 1300%;
+border-radius: 20px;
+filter: grayscale(70%);
+}
+
+.imagen:hover {
+    border-radius: 20px;
+    border-color: #008080;
+    border-style: solid;
+    filter: grayscale(0%);
+} 
+
+.divi{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items:center ;
+}
+
+label{
+    font-size: 20px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+h1{
+    font-size: 40px;
+}

@@ -1,3 +1,11 @@
+body {
+    /* background: url(C:\Users\rony1\Desktop\App-Reserva\reservas-restaurante-app\mesa-selecta\assets\Fondo-Pantalla-Restaurante.jpg); */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    backdrop-filter: grayscale(50%); 
+}
+
 .ContenedorRest{
     width: 70%;
     margin: 10%;
@@ -24,6 +32,7 @@ label{
     font-weight: lighter;
 
 }
+
 
 
 /* .icono-restaurante {
