@@ -19,6 +19,10 @@ export default class ChooseUserType extends Component {
                     <label htmlFor="" className="form-label">Restaurante</label>
                     <img src={negocio} alt="" className="imagen" />
                 </div>
+                <span></span>
+                <div className="col-md-12 text-center content-center">
+                    <button className="btn btn-md btn-danger text-center "> Salir</button>
+                </div>
             </form>
         </div>
            
