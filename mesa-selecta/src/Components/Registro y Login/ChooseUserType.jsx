@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react'
 import './ChooseUser.css'
-import cliente from 'C:/Users/rony1/Desktop/App-Reserva/reservas-restaurante-app/mesa-selecta/assets/Cliente.png'
-import negocio from 'C:/Users/rony1/Desktop/App-Reserva/reservas-restaurante-app/mesa-selecta/assets/Negocio.png'
+import cliente from '/assets/Cliente.png'
+import negocio from '/assets/Negocio.png'
 
 export default class ChooseUserType extends Component {
   render() {
