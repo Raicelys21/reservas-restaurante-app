@@ -3,24 +3,48 @@ const express = require("express");
 const connectDB = require("./config/connectDB");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const multer = require("multer");
 const app = express();
 
-//routes
-const cardRoute = require("./routes/cardRoute");
+// Multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "backend/uploads/");
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(
+      null,
+      file.fieldname +
+        "-" +
+        uniqueSuffix +
+        "." +
+        file.originalname.split(".").pop()
+    );
+  },
+});
 
-// middleware
+const upload = multer({ storage });
+
+// Routes
+const imagenesRoute = require("./routes/imagenesRoute");
+const reservasRoute = require("./routes/reservasRoute");
+const restauranteRoute = require("./routes/restauranteRoute");
+const usuarioRoute = require("./routes/usuarioRoute");
+
+// Middleware
 app.use(express.json());
--app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "http://localhost:5173",
-    ],
+    origin: ["http://localhost:3000", "http://localhost:5173"],
   })
 );
 
-app.use("/api/", cardRoute);
+app.use("/api/reservas", reservasRoute);
+app.use("/api/restaurante", restauranteRoute);
+app.use("/api/usuario", usuarioRoute);
+app.use("/api/imagen", upload.single("image"), imagenesRoute);
 
 app.get("/", (req, res) => {
   res.send("RUNNING");

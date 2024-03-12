@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react'
 import  './RegistroRest.css'
+import imagen from '../../../assets/restaurant-icon.webp'
 
-import imagen from 'C:/Users/rony1/Desktop/App-Reserva/reservas-restaurante-app/mesa-selecta/assets/restaurant-icon.webp'
 export default class RestaurantesRegistro extends Component {
 
   render() {
