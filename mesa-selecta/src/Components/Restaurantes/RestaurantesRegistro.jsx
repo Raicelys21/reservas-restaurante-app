@@ -2,8 +2,9 @@
 /* eslint-disable no-unused-vars */
 import React, { Component, useState } from 'react'
 import  './RegistroRest.css'
+import imagen from '../../../assets/restaurant-icon.webp'
 
-import imagen from '/assets/restaurant-icon.webp';
+
 export default class RestaurantesRegistro extends Component {
 
   render() {
