@@ -1,0 +1,17 @@
+.card{
+    width: 14rem;
+    margin: 10px;
+    box-shadow:  10px 10px 33px -8px rgba(0,0,0,0.38);
+}
+
+img{
+    
+    height: 200px;
+}
+
+/* .imagen{
+    width: 60%;
+    height: 1300%;
+    border-radius: 20px;
+    filter: grayscale(70%);
+    } */
