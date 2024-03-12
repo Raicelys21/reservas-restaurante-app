@@ -1,7 +1,10 @@
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable no-unused-vars */
 import React, { Component, useState } from "react";
 import "./RegistroRest.css";
 import imagen from "../../../assets/restaurant-icon.webp";
 import {Link} from "react-router-dom"
+
 
 
 export default class RestaurantesRegistro extends Component {

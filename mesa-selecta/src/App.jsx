@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,6 +11,8 @@ import RegistroU from "./Components/Registro y Login/RegistroU";
 import RestaurantesRegistro from "./Components/Restaurantes/RestaurantesRegistro";
 import ChooseUserType from "./Components/Registro y Login/ChooseUserType";
 import Login from "./Components/Registro y Login/Login"
+import Home from "./Components/Home/Home";
+import RestaurantCard from "./Components/Restaurantes/CardR/RestaurantCard";
 
 function App() {
   return (
@@ -17,11 +20,13 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<ChooseUserType />} />
+            <Route path="/Type" element={<ChooseUserType />} />
             <Route path="/Reserva" element={<Reserva />} />
             <Route path="/RegistroU" element={<RegistroU />} />
             <Route path="/RestauranteRegistro" element={<RestaurantesRegistro />} />
             <Route path="/Login" element={<Login />} />
+            <Route path="/Home" element={<Home />} />
+            <Route path="/RestaurantCard" element={<RestaurantCard/>}/>
           </Routes>
         </BrowserRouter>
       </div>
