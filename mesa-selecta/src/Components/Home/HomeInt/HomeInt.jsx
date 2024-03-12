@@ -3,10 +3,13 @@ import "../../Restaurantes/CardR/Card.css";
 import RestaurantCard from "../../Restaurantes/CardR/RestaurantCard";
 import Modal from "./Modal";
 import axios from "axios";
+import Cookies from "universal-cookie";
 
 const HomeInt = () => {
+  const cookies = new Cookies();
   const [modalVisible, setModalVisible] = useState(false);
   const [restaurantes, setRestaurantes] = useState([]);
+  const name = cookies.get("nombre") + " " + cookies.get("apellido");
 
   useEffect(() => {
     const fetchRestaurantes = async () => {
@@ -83,7 +86,7 @@ const HomeInt = () => {
             </a>
           </div>
           <div className="nav-right-side">
-            <p></p>
+            <p>{name}</p>
           </div>
         </section>
 

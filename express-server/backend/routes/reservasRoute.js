@@ -11,7 +11,7 @@ const {
 } = require("../controllers/reservasController");
 
 router.post("/reservas", postreservas);
-router.get("/reservass", getAllreservas);
+router.get("/reservas", getAllreservas);
 router.get("/reservas/:id", getreservas);
 router.delete("/reservas/:id", deletereservas);
 router.put("/reservas/:id", updatereservas);

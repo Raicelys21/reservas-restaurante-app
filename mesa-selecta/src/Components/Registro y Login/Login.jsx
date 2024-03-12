@@ -38,25 +38,24 @@ const Login = () => {
       const response = await axios.get(
         `${URL}/usuario/usuario/correo/${usuarioForm2.correo}/${usuarioForm2.contrasena}`
       );
-  
+
       const usuario = response.data;
+      console.log(usuario);
       if (usuario) {
         cookies.set("_id", usuario._id, { path: "/" });
-        cookies.set("cedula_pasaporte", usuarioForm.cedula, { path: "/" });
-        cookies.set("primer_nombre", usuarioForm.nombre, { path: "/" });
-        cookies.set("primer_apellido", usuarioForm.apellido, { path: "/" });
-        cookies.set("email", usuarioForm.correo, { path: "/" });
-        cookies.set("contrasena", usuarioForm.contrasena, { path: "/" });
-        cookies.set("tipoUsuario", usuarioForm.entidad, { path: "/" });
+        cookies.set("cedula", usuario.cedula, { path: "/" });
+        cookies.set("nombre", usuario.nombre, { path: "/" });
+        cookies.set("apellido", usuario.apellido, { path: "/" });
+        cookies.set("correo", usuario.correo, { path: "/" });
+        cookies.set("contrasena", usuario.contrasena, { path: "/" });
+        cookies.set("tipoUsuario", usuario.entidad, { path: "/" });
         navigate("/HomeInt");
       }
     } catch (error) {
       console.error("Error:", error);
       alert("Usuario o contraseña incorrecta");
-
     }
   };
-  
 
   return (
     <div className="center">
@@ -64,7 +63,12 @@ const Login = () => {
         <form action="" className="formulario">
           <h1>Iniciar sesión</h1>
           <label htmlFor="correo">Correo</label>
-          <input type="text" name="correo" id="correo" onChange={handleChange} />
+          <input
+            type="text"
+            name="correo"
+            id="correo"
+            onChange={handleChange}
+          />
           <label htmlFor="contrasena"> Contraseña</label>
           <input
             type="password"
@@ -75,9 +79,12 @@ const Login = () => {
 
           <span className="d-block" />
           <div className="text-center btn-group ">
-            <button type="submit" className="btn btn-primary" onClick={(event) => {
-              iniciarSesion(event);
-            }}>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              onClick={(event) => {
+                iniciarSesion(event);
+              }}>
               Iniciar sesión
             </button>
             <Link to="/">
