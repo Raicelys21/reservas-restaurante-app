@@ -1,15 +1,8 @@
-<<<<<<< HEAD
 /* eslint-disable no-unused-vars */
-import React, { Component } from 'react'
-import './ChooseUser.css'
-import cliente from '../../../assets/Cliente.png'
-import negocio from '../../../assets/Negocio.png'
-=======
 import React, { Component } from "react";
 import "./ChooseUser.css";
 import cliente from "../../../assets/Cliente.png";
 import negocio from "../../../assets/Negocio.png";
->>>>>>> 22e8e96aa36ce5a465b5998684888e19a3ace359
 
 
 export default class ChooseUserType extends Component {
