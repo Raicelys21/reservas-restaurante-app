@@ -10,6 +10,7 @@ import Reserva from "./Components/Reserva/Reserva";
 import RegistroU from "./Components/Registro y Login/RegistroU";
 import RestaurantesRegistro from "./Components/Restaurantes/RestaurantesRegistro";
 import ChooseUserType from "./Components/Registro y Login/ChooseUserType";
+import Home from "./Components/Home/Home";
 import RestaurantCard from "./Components/Restaurantes/CardR/RestaurantCard";
 
 function App() {
@@ -18,10 +19,11 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<ChooseUserType />} />
+            <Route path="/Type" element={<ChooseUserType />} />
             <Route path="/Reserva" element={<Reserva />} />
             <Route path="/RegistroU" element={<RegistroU />} />
             <Route path="/RestauranteRegistro" element={<RestaurantesRegistro />} />
+            <Route path="/" element={<Home />} />
             <Route path="/RestaurantCard" element={<RestaurantCard/>}/>
           </Routes>
         </BrowserRouter>
