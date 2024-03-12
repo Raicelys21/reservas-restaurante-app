@@ -1,5 +1,7 @@
 import React, { Component, useState } from "react";
 import "./RegistroU.css";
+import {Link} from "react-router-dom"
+
 
 export default class RegistroU extends Component {
   render() {
@@ -171,9 +173,11 @@ export default class RegistroU extends Component {
               <button type="submit" class="btn btn-primary">
                 Registrarse
               </button>
+              <Link to="/">
               <button type="submit" class="btn btn-danger">
                 Volver
               </button>
+              </Link>
             </div>
             {/* <div className="text-center RegistrarEMP">
                 <a href="">

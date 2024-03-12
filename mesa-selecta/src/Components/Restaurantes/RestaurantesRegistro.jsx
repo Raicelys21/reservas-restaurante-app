@@ -1,6 +1,8 @@
 import React, { Component, useState } from "react";
 import "./RegistroRest.css";
 import imagen from "../../../assets/restaurant-icon.webp";
+import {Link} from "react-router-dom"
+
 
 export default class RestaurantesRegistro extends Component {
   render() {
@@ -66,24 +68,7 @@ export default class RestaurantesRegistro extends Component {
                 <button className="btn btn-primary">+</button>
               </div>
             </div>
-            <div className="col-md-3  ">
-              <label htmlFor="">Instagram del establecimiento</label>
-              <input
-                type="text"
-                class="form-control "
-                id="inputAddress2"
-                placeholder="@instagram"
-              />
-            </div>
-            <div className="col-md-3">
-              <label htmlFor="">Facebook del establecimiento</label>
-              <input
-                type="text"
-                class="form-control "
-                id="inputAddress2"
-                placeholder="@facebook"
-              />
-            </div>
+
             <div className="col-md-7">
               <label htmlFor="">Google Maps del Establecimiento</label>
               <input
@@ -121,13 +106,26 @@ export default class RestaurantesRegistro extends Component {
                 placeholder=""
               />
             </div>
+
+            <div className="col-md-7">
+              <label htmlFor="">Foto del establecimiento</label>
+              <input
+                type="file"
+                class="form-control "
+                id="inputAddress2"
+                placeholder=""
+              />
+            </div>
+
             <div class="col-14 text-center btn-group ">
               <button type="submit" class="btn btn-primary">
                 Registrarse
               </button>
+              <Link to="/">
               <button type="submit" class="btn btn-danger">
                 Volver
               </button>
+              </Link>
             </div>
           </form>
         </div>
