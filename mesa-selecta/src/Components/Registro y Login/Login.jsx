@@ -40,7 +40,6 @@ const Login = () => {
       );
 
       const usuario = response.data;
-      console.log(usuario);
       if (usuario) {
         cookies.set("_id", usuario._id, { path: "/" });
         cookies.set("cedula", usuario.cedula, { path: "/" });
@@ -49,6 +48,7 @@ const Login = () => {
         cookies.set("correo", usuario.correo, { path: "/" });
         cookies.set("contrasena", usuario.contrasena, { path: "/" });
         cookies.set("tipoUsuario", usuario.entidad, { path: "/" });
+        
         navigate("/HomeInt");
       }
     } catch (error) {

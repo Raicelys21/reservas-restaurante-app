@@ -7,7 +7,51 @@ import { useNavigate } from "react-router-dom";
 const Modal = ({ closeM, reservaForm }) => {
   const cookies = new Cookies();
   const navigate = useNavigate();
+  const [totalPersonas, setTotalPersonas] = useState(0);
+  const [totalMesas, setTotalMesas] = useState(0);
+  const [showData, setShowData] = useState(false);
 
+  const fetchReservasPorFecha = async (fecha, cod_res) => {
+    const dataFecha = {
+      cod_restaurante: cod_res,
+      fecha: fecha,
+    };
+
+    console.log(dataFecha);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/reservas/reservas/restaurante",
+        dataFecha
+      );
+
+      let personasTotales = 0;
+      let mesasTotales = 0;
+
+      response.data.forEach((reserva) => {
+        personasTotales += parseInt(reserva.cant_personas);
+        mesasTotales += parseInt(reserva.cant_mesas);
+      });
+
+      setTotalPersonas(personasTotales);
+      setTotalMesas(mesasTotales);
+
+      setShowData(true);
+
+      const timeoutId = setTimeout(() => {
+        setShowData(false);
+      }, 10000);
+    } catch (error) {
+      setTotalPersonas(0);
+      setTotalMesas(0);
+      setShowData(true);
+
+      const timeoutId = setTimeout(() => {
+        setShowData(false);
+      }, 10000);
+      console.error("Error al obtener reservas por fecha:", error);
+    }
+  };
 
   const [revForm, setResForm] = useState({
     fecha: "",
@@ -23,42 +67,22 @@ const Modal = ({ closeM, reservaForm }) => {
       ...prevState,
       [name]: value,
     }));
-    console.log(revForm);
   };
 
-
-  // const sendEmail = (requestBody) => {
-  //   var data = {
-  //     nombre: cookies.get('nombre'),
-  //     apellido: cookies.get('apellido'),
-  //     correo: cookies.get('correo'),
-  //     lugar: requestBody.cod_restaurante,
-  //     horario: requestBody.horario,
-  //     fecha: requestBody.fecha,
-  //     personas: requestBody.cant_personas, 
-  //     mesas: requestBody.cant_mesas,
-  //   };
-
-  //   console.log(data);
-  
-  //   emailjs
-  //     .sendForm('service_vw210tv', 'template_7pzvf3o', data, 'BXAzsRPbpYBlBmJ8C')
-  //     .then(
-  //       (response) => {
-  //         console.log('SUCCESS!', response.status);
-  //       },
-  //       (error) => {
-  //         console.error('FAILED...', error.text);
-  //       }
-  //     );
-  // };
-  
-  
-
-
   const enviarReserva = async () => {
-    
     try {
+      const personasDisponibles = reservaForm.num_personas - totalPersonas;
+      const mesasDisponibles = reservaForm.cant_mesas - totalMesas;
+
+      // Verificar si hay suficientes personas y mesas disponibles
+      if (
+        revForm.cant_personas > personasDisponibles ||
+        revForm.cant_mesas > mesasDisponibles
+      ) {
+        alert("No hay suficientes personas o mesas disponibles.");
+        return;
+      }
+
       const requestBody = {
         cod_usuario: cookies.get("cedula"),
         cod_restaurante: reservaForm.nombre_restaurante,
@@ -70,46 +94,59 @@ const Modal = ({ closeM, reservaForm }) => {
         cant_mesas: revForm.cant_mesas,
         comentario: revForm.comentario,
       };
-      await axios.post(
-        "http://localhost:5000/api/reservas/reservas",
-        requestBody
-      ); 
+      if (
+        requestBody.cod_usuario &&
+        requestBody.cod_restaurante &&
+        requestBody.nombre &&
+        requestBody.apellido &&
+        requestBody.fecha &&
+        requestBody.horario &&
+        requestBody.cant_personas &&
+        requestBody.cant_mesas !== ""
+      ) {
+        await axios.post(
+          "http://localhost:5000/api/reservas/reservas",
+          requestBody
+        );
 
-      var data = {
-        service_id: 'service_vw210tv',
-        template_id: 'template_7pzvf3o',
-        user_id: 'BXAzsRPbpYBlBmJ8C',
-        template_params: {
-          'nombre': cookies.get('nombre'),
-          'apellido': cookies.get('apellido'),
-          'correo': cookies.get('correo'),
-          'lugar': requestBody.cod_restaurante,
-          'horario': requestBody.horario,
-          'fecha': requestBody.fecha,
-          'personas': requestBody.cant_personas, 
-          'mesas': requestBody.cant_mesas,
-        }
-    };
-     
-    axios.post('https://api.emailjs.com/api/v1.0/email/send', data, {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(response => {
-    alert('Your mail is sent!');
-  })
-  .catch(error => {
-    alert('Oops... ' + JSON.stringify(error));
-  });
+        var data = {
+          service_id: "service_vw210tv",
+          template_id: "template_7pzvf3o",
+          user_id: "BXAzsRPbpYBlBmJ8C",
+          template_params: {
+            nombre: cookies.get("nombre"),
+            apellido: cookies.get("apellido"),
+            correo: cookies.get("correo"),
+            lugar: requestBody.cod_restaurante,
+            horario: requestBody.horario,
+            fecha: requestBody.fecha,
+            personas: requestBody.cant_personas,
+            mesas: requestBody.cant_mesas,
+          },
+        };
 
-      let modal = document.querySelector("#modal-window");
-    modal.classList.remove("showModal");
+        axios
+          .post("https://api.emailjs.com/api/v1.0/email/send", data, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+          .then((response) => {
+            alert("Your mail is sent!");
+          })
+          .catch((error) => {
+            alert("Oops... " + JSON.stringify(error));
+          });
+
+        let modal = document.querySelector("#modal-window");
+        modal.classList.remove("showModal");
+      } else {
+        alert("Completa todos los campos.");
+      }
     } catch (error) {
       console.error("Error al crear la reserva:", error);
     }
   };
-  
 
   return (
     <div id="modal-window" className="shadow">
@@ -227,10 +264,17 @@ const Modal = ({ closeM, reservaForm }) => {
                   id="inputDate"
                   name="fecha"
                   value={revForm.fecha}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    handleChange(e);
+                    fetchReservasPorFecha(
+                      e.target.value,
+                      reservaForm.nombre_restaurante
+                    );
+                  }}
                   placeholder="YYYY-MM-DD"
                 />
               </div>
+
               <div className="col-md-3 mb-3">
                 <label htmlFor="inputTime" className="form-label">
                   Horario
@@ -276,6 +320,21 @@ const Modal = ({ closeM, reservaForm }) => {
             </div>
 
             <div className="row">
+              {showData && (
+                <div>
+                  <p>
+                    <strong>Total de personas disponibles:</strong>{" "}
+                    {reservaForm.num_personas - totalPersonas}
+                  </p>
+                  <p>
+                    <strong>Total de mesas disponibles:</strong>{" "}
+                    {reservaForm.cant_mesas - totalMesas}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="row">
               <div className="col-md-12 mb-12">
                 <label htmlFor="inputDate" className="form-label">
                   Comentario
@@ -293,7 +352,9 @@ const Modal = ({ closeM, reservaForm }) => {
             </div>
 
             <div className="desc-actions">
-              <button className="btn btn-primary" onClick={() => enviarReserva()}>
+              <button
+                className="btn btn-primary"
+                onClick={() => enviarReserva()}>
                 Reservar
               </button>
               <div className="add-favourite">

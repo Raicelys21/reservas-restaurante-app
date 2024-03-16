@@ -32,6 +32,13 @@ const RestaurantesRegistro = () => {
 
   const registrarse = async (e) => {
     e.preventDefault();
+
+    const isEmpty = Object.values(restauranteForm).some((value) => !value);
+
+    if (isEmpty) {
+        alert("Por favor, complete todos los campos.");
+        return;
+    }
   
     try {
       const requestBody = {
@@ -49,7 +56,7 @@ const RestaurantesRegistro = () => {
   
 
       await axios.post(`${URL}/restaurante/restaurante`, requestBody);
-      navigate("./");
+      navigate("/");
   
     } catch (error) {
       console.error("Registration failed:", error);

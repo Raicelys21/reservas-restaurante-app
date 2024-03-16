@@ -1,0 +1,9 @@
+a{
+    margin: 0px 3px;
+}
+
+
+td, tr, th{
+    padding: 1rem;
+    border: 1px solid rgb(117, 116, 116);
+}

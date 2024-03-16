@@ -4,26 +4,45 @@ import RestaurantCard from "../../Restaurantes/CardR/RestaurantCard";
 import Modal from "./Modal";
 import axios from "axios";
 import Cookies from "universal-cookie";
+import { useNavigate } from "react-router-dom";
 
 const HomeInt = () => {
+  const navigate = useNavigate();
   const cookies = new Cookies();
   const [modalVisible, setModalVisible] = useState(false);
   const [restaurantes, setRestaurantes] = useState([]);
   const name = cookies.get("nombre") + " " + cookies.get("apellido");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [restaurantsPerPage] = useState(3);
+  
+
+  const removeCookies = () => {
+    cookies.remove("_id", { path: "/" });
+    cookies.remove("cedula", { path: "/" });
+    cookies.remove("nombre", { path: "/" });
+    cookies.remove("apellido", { path: "/" });
+    cookies.remove("correo", { path: "/" });
+    cookies.remove("contrasena", { path: "/" });
+    cookies.remove("tipoUsuario", { path: "/" });
+  };
 
   useEffect(() => {
-    const fetchRestaurantes = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/restaurante/restaurantes"
-        );
-        setRestaurantes(response.data);
-      } catch (error) {
-        console.error("Error al obtener restaurantes:", error);
-      }
-    };
+    if (cookies.get("nombre") == undefined) {
+      navigate("/");
+    } else {
+      const fetchRestaurantes = async () => {
+        try {
+          const response = await axios.get(
+            "http://localhost:5000/api/restaurante/restaurantes"
+          );
+          setRestaurantes(response.data);
+        } catch (error) {
+          console.error("Error al obtener restaurantes:", error);
+        }
+      };
 
-    fetchRestaurantes();
+      fetchRestaurantes();
+    }
   }, []);
 
   const [reservaForm, setReservaForm] = useState({
@@ -67,6 +86,14 @@ const HomeInt = () => {
     }
   };
 
+  const indexOfLastRestaurant = currentPage * restaurantsPerPage;
+  const indexOfFirstRestaurant = indexOfLastRestaurant - restaurantsPerPage;
+  const currentRestaurants = restaurantes.slice(
+    indexOfFirstRestaurant,
+    indexOfLastRestaurant
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <>
       <div className="app-container">
@@ -81,16 +108,23 @@ const HomeInt = () => {
             <a href="/HomeInt" className="nav-link active">
               Restaurantes
             </a>
-            <a href="Perfil" className="nav-link">
+            {/* <a href="Perfil" className="nav-link">
               Perfil
+            </a> */}
+            <a href="/HomeInt" className="nav-link">
+              <p>{name}</p>
             </a>
           </div>
           <div className="nav-right-side">
-            <p>{name}</p>
+            <a href="/" className="nav-link active">
+              <button onClick={removeCookies} className="btn btn-success">
+                Salir
+              </button>
+            </a>
           </div>
         </section>
 
-        <section className="app-actions">
+        {/* <section className="app-actions">
           <form className="row g-1">
             <div className="col-m6">
               <label htmlFor="inputState2" className="form-label">
@@ -98,79 +132,19 @@ const HomeInt = () => {
               </label>
               <select id="inputState2" className="form-select">
                 <option selected>Seleccionar</option>
-                <option>Santo Domingo</option>
-                <option>Santiago de los Caballeros</option>
-                <option>La Romana</option>
-                <option>San Pedro de Macorís</option>
-                <option>San Francisco de Macorís</option>
-                <option>La Vega</option>
-                <option>Puerto Plata</option>
-                <option>Higüey</option>
-                <option>Bonao</option>
-                <option>Barahona</option>
-                <option>San Cristóbal</option>
-                <option>Mao</option>
-                <option>Moca</option>
-                <option>Azua</option>
-                <option>Cotuí</option>
-                <option>Salcedo</option>
-                <option>San Juan de la Maguana</option>
-                <option>Bani</option>
-                <option>Dajabón</option>
-                <option>Monte Plata</option>
-                <option>Jimaní</option>
-                <option>Neiba</option>
-                <option>Nagua</option>
-                <option>Sabaneta</option>
-                <option>Montecristi</option>
-                <option>Santo Domingo Este</option>
-                <option>Santo Domingo Norte</option>
-                <option>Santo Domingo Oeste</option>
-                <option>Boca Chica</option>
-                <option>San José de Ocoa</option>
-                <option>Constanza</option>
-                <option>El Seibo</option>
-                <option>Hato Mayor del Rey</option>
-                <option>Independencia</option>
-                <option>Los Alcarrizos</option>
-                <option>Pedernales</option>
-                <option>San José de las Matas</option>
-                <option>San Juan</option>
-                <option>Santiago Rodríguez</option>
-                <option>Valverde Mao</option>
-                <option>Duvergé</option>
-                <option>Jarabacoa</option>
-                <option>Loma de Cabrera</option>
-                <option>Las Matas de Farfán</option>
-                <option>Padre Las Casas</option>
-                <option>Monte Cristi</option>
-                <option>Pepillo Salcedo</option>
-                <option>Puerto Plata</option>
-                <option>Río San Juan</option>
-                <option>Samaná</option>
-                <option>San José de las Matas</option>
-                <option>San Juan de la Maguana</option>
-                <option>San Pedro de Macorís</option>
-                <option>San Rafael del Yuma</option>
-                <option>Santiago</option>
-                <option>Tamayo</option>
-                <option>Villa Altagracia</option>
-                <option>Villa Bisonó</option>
-                <option>Villa González</option>
-                <option>Villa Jaragua</option>
-                <option>Villa Riva</option>
-                <option>Yaguate</option>
               </select>
             </div>
           </form>
-        </section>
+        </section> */}
 
         <section className="app-main">
           <div className="app-main-left cards-area">
-            {restaurantes.map((restaurante) => (
+            {currentRestaurants.map((restaurante) => (
               <div className="card-wrapper main-card" key={restaurante.id}>
                 <div className="col" key={restaurante.id}>
-                  <a className="card cardItemjs" onClick={() => openModal(restaurante)}>
+                  <a
+                    className="card cardItemjs"
+                    onClick={() => openModal(restaurante)}>
                     <div className="card-image-wrapper">
                       <img
                         src={`https://source.unsplash.com/featured/1200x900/?restaurant-room,restaurant&id=${restaurante.id}`}
@@ -205,6 +179,20 @@ const HomeInt = () => {
           </div>
         </section>
       </div>
+      <nav>
+        <div className="pagination center">
+          {Array.from(
+            { length: Math.ceil(restaurantes.length / restaurantsPerPage) },
+            (_, i) => (
+              <p key={i} className="page-item">
+                <a onClick={() => paginate(i + 1)} className="page-link">
+                  {i + 1}
+                </a>
+              </p>
+            )
+          )}
+        </div>
+      </nav>
 
       {modalVisible && <Modal closeModal={closeM} reservaForm={reservaForm} />}
     </>

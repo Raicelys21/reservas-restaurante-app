@@ -1,4 +1,9 @@
+import Cookies from "universal-cookie";
+
+
 const Perfil = () => {
+
+  const name = cookies.get("nombre") + " " + cookies.get("apellido");
 
     return (
         <>
@@ -14,9 +19,9 @@ const Perfil = () => {
                     <a href="/HomeInt" class="nav-link ">
                       Restaurantes
                     </a>
-                    <a href="Perfil" class="nav-link active">
+                    {/* <a href="Perfil" class="nav-link active">
                       Perfil
-                    </a>
+                    </a> */}
                   </div>
                   <div class="nav-right-side">
                     <p></p>

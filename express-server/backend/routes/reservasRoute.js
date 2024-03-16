@@ -8,10 +8,14 @@ const {
   getAllreservas,
   deletereservas,
   updatereservas,
+  getAllreservasByCod,
+  getAllReservasByCodAndFecha,
 } = require("../controllers/reservasController");
 
 router.post("/reservas", postreservas);
 router.get("/reservas", getAllreservas);
+router.get("/reservas/codigo/:cod_usuario", getAllreservasByCod);
+router.post("/reservas/restaurante", getAllReservasByCodAndFecha);
 router.get("/reservas/:id", getreservas);
 router.delete("/reservas/:id", deletereservas);
 router.put("/reservas/:id", updatereservas);

@@ -371,7 +371,7 @@ img{
     .app-main {
       flex: 1;
       overflow: hidden;
-      padding: 24px 40px;
+      padding: 10px 40px;
       display: flex;
       justify-content: space-between;
     }
